@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Main Activity"
+        android:textSize="32sp"
+        android:textColor="#161540"
+        android:background="#583a9d"
+        android:padding="10dp"
+        tools:ignore="HardcodedText"
+        android:gravity="center"
+        />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#bf666f"
+        android:name="com.example.kotlin_fragment.firstFragment"
+        android:layout_margin="20dp"
+        />
+</LinearLayout>
