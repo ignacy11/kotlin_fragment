@@ -8,6 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.example.kotlin_fragment.databinding.FragmentFirstBinding
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -20,6 +23,17 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class firstFragment : Fragment() {
+
+    private var _binding: FragmentFirstBinding? = null
+    private val binding get() = _binding!!
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -36,19 +50,34 @@ class firstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        _binding = FragmentFirstBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding = FragmentFirstBinding.bind(view)
+
         val fragmentExampleButton: Button = view.findViewById(R.id.fragmentExampleButton)
-        fragmentExampleButton.setOnClickListener {
+        val fragmentExampleTextView: TextView = view.findViewById(R.id.fragmentExampleTextView)
+
+        fun displayCurrentTime(): String {
+            val currentTime = LocalTime
+                .now()
+                .format(DateTimeFormatter.ofPattern("HH:mm:ss"))
+            return currentTime
+        }
+
+        // niekanoniczne użycie Binding bo metoda onViewCreated() zakłada że View już istnieje
+        binding.fragmentExampleButton.setOnClickListener {
             Toast.makeText(
                 requireContext(),
-                "pressed the button inside the fragment",
+                "kliknięto przycisk we fragmencie",
                 Toast.LENGTH_SHORT)
                 .show()
+            fragmentExampleTextView.text = displayCurrentTime()
         }
     }
 
